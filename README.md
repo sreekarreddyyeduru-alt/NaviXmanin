@@ -1,2 +1,2 @@
-# NaviXmanin
+# NaviX
 app

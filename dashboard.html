@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — NaviX{% endblock %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+    <div>
+      <h1 class="text-3xl font-bold mb-1">Live City Dashboard</h1>
+      <p class="text-zinc-400 text-sm">Real-time traffic intelligence for Bengaluru — updated every 5 seconds</p>
+    </div>
+    <div class="flex items-center gap-2 text-sm">
+      <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+      <span class="text-zinc-400">Live</span>
+      <span id="last-update" class="text-zinc-500 text-xs">Just now</span>
+    </div>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+    <div style="background:#161b22;border:1px solid #21262d;border-radius:14px;padding:20px">
+      <div class="text-xs text-zinc-400 uppercase tracking-wider mb-2">City Score</div>
+      <div class="text-3xl font-bold text-amber-400" id="kpi-city-score">—</div>
+      <div class="text-xs text-zinc-500 mt-1">Higher = better flow</div>
+    </div>
+    <div style="background:#161b22;border:1px solid #21262d;border-radius:14px;padding:20px">
+      <div class="text-xs text-zinc-400 uppercase tracking-wider mb-2">Time Saved</div>
+      <div class="text-3xl font-bold text-emerald-400"><span id="kpi-time-saved">—</span><span class="text-sm text-zinc-500 ml-1">min</span></div>
+      <div class="text-xs text-zinc-500 mt-1">Today, on average</div>
+    </div>
+    <div style="background:#161b22;border:1px solid #21262d;border-radius:14px;padding:20px">
+      <div class="text-xs text-zinc-400 uppercase tracking-wider mb-2">Active Incidents</div>
+      <div class="text-3xl font-bold text-red-400" id="kpi-incidents">—</div>
+      <div class="text-xs text-zinc-500 mt-1">Live across the city</div>
+    </div>
+  </div>
+
+  <div class="grid lg:grid-cols-3 gap-6 mb-8">
+    <div class="lg:col-span-2" style="background:#161b22;border:1px solid #21262d;border-radius:14px;padding:24px">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-bold">Road Segment Status</h2>
+        <span class="text-xs text-zinc-500">76 segments</span>
+      </div>
+      <div class="grid grid-cols-3 gap-4">
+        <div class="text-center p-4 rounded-lg" style="background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2)">
+          <div class="text-2xl font-bold text-emerald-400" id="seg-clear">—</div>
+          <div class="text-xs text-emerald-300 mt-1 uppercase tracking-wider">Clear</div>
+        </div>
+        <div class="text-center p-4 rounded-lg" style="background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.2)">
+          <div class="text-2xl font-bold text-amber-400" id="seg-moderate">—</div>
+          <div class="text-xs text-amber-300 mt-1 uppercase tracking-wider">Moderate</div>
+        </div>
+        <div class="text-center p-4 rounded-lg" style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2)">
+          <div class="text-2xl font-bold text-red-400" id="seg-jammed">—</div>
+          <div class="text-xs text-red-300 mt-1 uppercase tracking-wider">Jammed</div>
+        </div>
+      </div>
+      <div class="mt-6 pt-6" style="border-top:1px solid #21262d">
+        <div class="text-xs text-zinc-400 uppercase tracking-wider mb-3">Simulate Weather</div>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="setWeather('clear')" class="btn-ghost text-xs px-3 py-1.5">☀️ Clear</button>
+          <button onclick="setWeather('rain')" class="btn-ghost text-xs px-3 py-1.5">🌧 Rain</button>
+          <button onclick="setWeather('heavy_rain')" class="btn-ghost text-xs px-3 py-1.5">⛈ Heavy Rain</button>
+          <button onclick="setWeather('fog')" class="btn-ghost text-xs px-3 py-1.5">🌫 Fog</button>
+        </div>
+      </div>
+    </div>
+    <div style="background:#161b22;border:1px solid #21262d;border-radius:14px;padding:24px">
+      <h2 class="text-lg font-bold mb-1">⚡ AI Predictions</h2>
+      <p class="text-xs text-zinc-400 mb-4">Top 5 segments worsening in next 15 min</p>
+      <div id="predictions-list" class="space-y-2"><div class="text-zinc-500 text-sm">Loading…</div></div>
+    </div>
+  </div>
+
+  <div class="grid sm:grid-cols-2 gap-4">
+    <a href="{{ url_for('routes') }}" style="background:#161b22;border:1px solid #21262d;border-radius:14px;padding:20px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='#f5a623'" onmouseout="this.style.borderColor='#21262d'">
+      <div class="text-2xl mb-2">🗺️</div>
+      <div class="font-bold mb-1 text-white">Plan a Route</div>
+      <div class="text-xs text-zinc-400">Find the fastest path between any two zones</div>
+    </a>
+    <a href="{{ url_for('map_view') }}" style="background:#161b22;border:1px solid #21262d;border-radius:14px;padding:20px;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='#f5a623'" onmouseout="this.style.borderColor='#21262d'">
+      <div class="text-2xl mb-2">📍</div>
+      <div class="font-bold mb-1 text-white">Live Traffic Map</div>
+      <div class="text-xs text-zinc-400">See real-time congestion across the city</div>
+    </a>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+async function refresh() {
+  try {
+    const r = await fetch('/api/state');
+    const d = await r.json();
+    const k = d.kpis;
+    document.getElementById('kpi-city-score').textContent = k.city_score;
+    document.getElementById('kpi-time-saved').textContent = k.time_saved_minutes;
+    document.getElementById('kpi-incidents').textContent = k.active_incidents;
+    document.getElementById('seg-clear').textContent = k.segments_clear;
+    document.getElementById('seg-moderate').textContent = k.segments_moderate;
+    document.getElementById('seg-jammed').textContent = k.segments_jammed;
+    document.getElementById('last-update').textContent = '· Updated just now';
+    const pl = document.getElementById('predictions-list');
+    pl.innerHTML = d.predictions.length ? d.predictions.map(p=>`
+      <div style="background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:12px">
+        <div class="flex justify-between items-center">
+          <div class="text-sm font-semibold truncate">${p.from_zone} → ${p.to_zone}</div>
+          <div class="text-xs font-bold text-red-400 ml-2">+${p.delta}</div>
+        </div>
+        <div class="text-xs text-zinc-500 mt-1">in ~${p.eta_minutes} min</div>
+      </div>`).join('') : '<div class="text-zinc-500 text-sm">No congestion predicted ✓</div>';
+  } catch(e) { console.error(e); }
+}
+async function setWeather(w) {
+  await fetch('/api/weather',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({weather:w})});
+  showToast('Weather: '+w.replace('_',' '));
+  refresh();
+}
+refresh(); setInterval(refresh, 5000);
+</script>
+{% endblock %}

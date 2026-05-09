@@ -1,0 +1,46 @@
+=========================================================
+  NAVIX LOGO CHANGE — DO THIS IN base.html
+=========================================================
+
+STEP 1: Open base.html on your Mac
+
+STEP 2: Find this block (the old yellow N logo):
+
+    <a class="navbar-brand" href="/dashboard">
+      <div class="logo-box">N</div>
+      NAVIX
+    </a>
+
+  NOTE: It might look slightly different but will have
+  the "N" box and "NAVIX" text. Search for "logo-box"
+  or "navbar-brand" in the file.
+
+STEP 3: Replace it with this:
+
+    <a class="navbar-brand" href="/dashboard" style="display:flex;align-items:center;gap:8px;text-decoration:none;">
+      <img src="{{ url_for('static', filename='icons/navix-mark.png') }}"
+           alt="NaviX"
+           style="height:38px;width:38px;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.8);">
+      <img src="{{ url_for('static', filename='icons/navix-wordmark.png') }}"
+           alt="NaviX"
+           style="height:32px;width:auto;object-fit:contain;mix-blend-mode:screen;filter:brightness(1.8);">
+    </a>
+
+STEP 4: Copy navix-mark.png and navix-wordmark.png
+        into your project's static/icons/ folder
+
+STEP 5: In Terminal run:
+
+    git add .
+    git commit -m "Update nav logo to new brand assets"
+    git push
+
+Render auto-deploys in ~2 minutes. Done!
+
+=========================================================
+  FILE CHECKLIST — make sure you have all 3:
+=========================================================
+  [ ] navix-mark.png       → goes in static/icons/
+  [ ] navix-wordmark.png   → goes in static/icons/
+  [ ] base.html            → edited with code above
+=========================================================

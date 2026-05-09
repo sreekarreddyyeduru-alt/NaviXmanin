@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Sign Up — NaviX{% endblock %}
+{% block content %}
+<div class="min-h-screen flex items-center justify-center px-4 py-12">
+  <div class="w-full max-w-md">
+    <div class="text-center mb-8">
+      <img src="{{ url_for('static', filename='icons/navix-wordmark.png') }}" alt="NaviX" style="height:56px;width:auto;margin:0 auto 16px"/>
+    </div>
+    <div style="background:#161b22;border:1px solid #21262d;border-radius:16px;padding:32px">
+      <h1 class="text-2xl font-bold mb-1">Create account</h1>
+      <p class="text-zinc-400 text-sm mb-6">Join NaviX — free forever.</p>
+      <form method="POST" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Name</label>
+          <input type="text" name="name" required autofocus class="form-input" placeholder="Your name"/>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Email</label>
+          <input type="email" name="email" required class="form-input" placeholder="you@example.com"/>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Password</label>
+          <input type="password" name="password" required class="form-input" placeholder="Min 6 characters"/>
+        </div>
+        <button type="submit" class="w-full bg-amber-400 hover:bg-amber-300 text-black font-bold py-2.5 rounded-lg transition">Create account</button>
+      </form>
+      <p class="text-center text-sm text-zinc-400 mt-6">Already have an account? <a href="{{ url_for('auth.login') }}" class="text-amber-400 hover:text-amber-300 font-semibold">Log in</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}

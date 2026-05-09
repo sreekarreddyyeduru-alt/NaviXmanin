@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Reset Password — NaviX{% endblock %}
+{% block content %}
+<div class="min-h-screen flex items-center justify-center px-4 py-12">
+  <div class="w-full max-w-md">
+    <div style="background:#161b22;border:1px solid #21262d;border-radius:16px;padding:32px">
+      <h1 class="text-2xl font-bold mb-1">New password</h1>
+      <p class="text-zinc-400 text-sm mb-6">Enter the reset code and your new password.</p>
+      <form method="POST" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Reset Code</label>
+          <input type="text" name="code" required autofocus class="form-input" placeholder="123456"/>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">New Password</label>
+          <input type="password" name="password" required class="form-input" placeholder="Min 6 characters"/>
+        </div>
+        <button type="submit" class="w-full bg-amber-400 hover:bg-amber-300 text-black font-bold py-2.5 rounded-lg transition">Reset password</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

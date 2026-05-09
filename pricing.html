@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Pricing — NaviX{% endblock %}
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 sm:px-6 py-12">
+
+  <div class="text-center mb-12">
+    <h1 class="text-4xl font-bold mb-3">Simple, Transparent Pricing</h1>
+    <p class="text-zinc-400">All paid plans include a 7-day free trial. Cancel anytime. No hidden fees.</p>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-6 mb-10">
+
+    <!-- FREE -->
+    <div style="background:#161b22;border:1px solid #30363d;border-radius:20px;padding:32px;display:flex;flex-direction:column">
+      <div class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-2">Starter</div>
+      <div class="text-3xl font-black mb-1">FREE</div>
+      <div class="text-zinc-400 mb-1"><span class="text-4xl font-black text-white">₹0</span> <span class="text-sm">/month</span></div>
+      <p class="text-zinc-400 text-sm mb-6 mt-2">Perfect for casual commuters trying NaviX.</p>
+      <ul class="space-y-3 mb-8 flex-1">
+        {% for f in ['Real-time traffic navigation','Basic route suggestions','Live congestion updates','Up to 10 saved locations','Standard ETA accuracy','Community traffic reports'] %}
+        <li class="flex items-center gap-2 text-sm text-zinc-300"><span class="text-emerald-400 font-bold">✓</span>{{ f }}</li>
+        {% endfor %}
+      </ul>
+      {% if current_plan == 'free' %}
+      <div style="border:1px solid #30363d;border-radius:10px;padding:12px;text-align:center;font-weight:700;color:#8b949e">Current Plan</div>
+      {% else %}
+      <a href="{{ url_for('subscribe', plan='free') }}" style="border:1px solid #30363d;border-radius:10px;padding:12px;text-align:center;font-weight:700;color:#8b949e;text-decoration:none;display:block;transition:border-color .2s" onmouseover="this.style.borderColor='#f5a623';this.style.color='#f5a623'" onmouseout="this.style.borderColor='#30363d';this.style.color='#8b949e'">Get Started</a>
+      {% endif %}
+    </div>
+
+    <!-- PRO -->
+    <div style="background:#161b22;border:2px solid #f5a623;border-radius:20px;padding:32px;display:flex;flex-direction:column;position:relative">
+      <div style="position:absolute;top:-16px;left:50%;transform:translateX(-50%);background:#f5a623;color:#0d1117;font-size:11px;font-weight:800;padding:4px 16px;border-radius:99px;white-space:nowrap">⭐ MOST POPULAR</div>
+      <div class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2">Pro</div>
+      <div class="text-3xl font-black text-amber-400 mb-1">PRO</div>
+      <div class="mb-1"><span class="text-4xl font-black text-white">₹249</span><span class="text-zinc-400 text-sm"> /month</span></div>
+      <p class="text-zinc-400 text-sm mb-6 mt-2">For daily commuters who want the smartest routes every time.</p>
+      <ul class="space-y-3 mb-8 flex-1">
+        <li class="text-sm font-bold text-amber-400">Everything in Free, plus:</li>
+        {% for f in ['AI-powered predictive routing','Avoid congestion before it happens','Unlimited saved locations','Priority traffic alerts','Voice-guided navigation','Offline maps for Bengaluru','Ad-free experience'] %}
+        <li class="flex items-center gap-2 text-sm text-zinc-300"><span class="text-amber-400 font-bold">✓</span>{{ f }}</li>
+        {% endfor %}
+      </ul>
+      {% if current_plan == 'pro' %}
+      <div style="background:#f5a623;color:#0d1117;border-radius:10px;padding:12px;text-align:center;font-weight:800">Current Plan</div>
+      {% else %}
+      <a href="{{ url_for('subscribe', plan='pro') }}" style="background:#f5a623;color:#0d1117;border-radius:10px;padding:12px;text-align:center;font-weight:800;text-decoration:none;display:block;transition:background .2s" onmouseover="this.style.background='#fbbf24'" onmouseout="this.style.background='#f5a623'">Upgrade to Pro</a>
+      {% endif %}
+    </div>
+
+    <!-- PREMIUM -->
+    <div style="background:#161b22;border:1px solid #30363d;border-radius:20px;padding:32px;display:flex;flex-direction:column">
+      <div class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-2">Premium</div>
+      <div class="text-3xl font-black mb-1">PREMIUM</div>
+      <div class="mb-1"><span class="text-4xl font-black text-white">₹599</span><span class="text-zinc-400 text-sm"> /month</span></div>
+      <p class="text-zinc-400 text-sm mb-6 mt-2">For power users, fleets, and businesses that depend on mobility.</p>
+      <ul class="space-y-3 mb-8 flex-1">
+        <li class="text-sm font-bold text-amber-400">Everything in Pro, plus:</li>
+        {% for f in ['Family sharing for up to 5 members','Custom route optimization','Detailed commute analytics','API access for integrations','Priority 24/7 customer support','Carbon footprint reports','Early access to new features'] %}
+        <li class="flex items-center gap-2 text-sm text-zinc-300"><span class="text-amber-400 font-bold">✓</span>{{ f }}</li>
+        {% endfor %}
+      </ul>
+      {% if current_plan == 'premium' %}
+      <div style="border:1px solid #f5a623;border-radius:10px;padding:12px;text-align:center;font-weight:700;color:#f5a623">Current Plan</div>
+      {% else %}
+      <a href="{{ url_for('subscribe', plan='premium') }}" style="border:1px solid #f5a623;border-radius:10px;padding:12px;text-align:center;font-weight:700;color:#f5a623;text-decoration:none;display:block;transition:all .2s" onmouseover="this.style.background='#f5a623';this.style.color='#0d1117'" onmouseout="this.style.background='transparent';this.style.color='#f5a623'">Go Premium</a>
+      {% endif %}
+    </div>
+
+  </div>
+
+  <p class="text-center text-sm text-zinc-500 mb-12">All paid plans include a 7-day free trial. Cancel anytime. No hidden fees.</p>
+
+  <!-- FAQ -->
+  <div class="max-w-2xl mx-auto">
+    <h2 class="text-2xl font-bold text-center mb-6">Frequently Asked Questions</h2>
+    <div class="space-y-4">
+      {% for q,a in [
+        ('Can I switch plans anytime?', 'Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.'),
+        ('Is there a free trial?', 'Yes! All paid plans come with a 7-day free trial. No credit card required to start.'),
+        ('What payment methods do you accept?', 'We accept all major credit/debit cards, UPI, and net banking via Razorpay.'),
+        ('Can I cancel my subscription?', 'Absolutely. Cancel anytime from your settings page with no questions asked.')
+      ] %}
+      <div style="background:#161b22;border:1px solid #21262d;border-radius:12px;padding:20px">
+        <div class="font-semibold mb-2">{{ q }}</div>
+        <div class="text-sm text-zinc-400">{{ a }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+{% endblock %}

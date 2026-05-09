@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Settings — NaviX{% endblock %}
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 sm:px-6 py-8">
+  <h1 class="text-3xl font-bold mb-1">Settings</h1>
+  <p class="text-zinc-400 text-sm mb-8">Manage your account</p>
+  <div style="background:#161b22;border:1px solid #21262d;border-radius:14px;padding:24px" class="mb-4">
+    <h2 class="font-bold mb-4">Account</h2>
+    <div class="space-y-3 text-sm">
+      <div class="flex justify-between"><span class="text-zinc-400">Email</span><span>{{ user_email }}</span></div>
+      <div class="flex justify-between"><span class="text-zinc-400">Name</span><span>{{ user_name }}</span></div>
+      <div class="flex justify-between"><span class="text-zinc-400">Plan</span>
+        <span class="text-amber-400 font-bold uppercase">{{ subscription_plan }}</span></div>
+    </div>
+  </div>
+  <div class="flex gap-3">
+    <a href="{{ url_for('pricing') }}" class="btn-primary">Upgrade Plan</a>
+    <a href="{{ url_for('auth.logout') }}" class="btn-ghost">Logout</a>
+  </div>
+</div>
+{% endblock %}

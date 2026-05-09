@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Analytics — NaviX{% endblock %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+  <h1 class="text-3xl font-bold mb-1">Investor Analytics</h1>
+  <p class="text-zinc-400 text-sm mb-8">5-year revenue projections and impact metrics</p>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+    <div style="background:#161b22;border:1px solid #21262d;border-radius:14px;padding:20px">
+      <div class="text-xs text-zinc-400 uppercase tracking-wider mb-2">5-Year ROI</div>
+      <div class="text-3xl font-bold text-emerald-400">316%</div>
+      <div class="text-xs text-zinc-500 mt-1">On ₹5 Cr investment</div>
+    </div>
+    <div style="background:#161b22;border:1px solid #21262d;border-radius:14px;padding:20px">
+      <div class="text-xs text-zinc-400 uppercase tracking-wider mb-2">Break-even</div>
+      <div class="text-3xl font-bold text-amber-400">Year 2</div>
+      <div class="text-xs text-zinc-500 mt-1">Projected timeline</div>
+    </div>
+    <div style="background:#161b22;border:1px solid #21262d;border-radius:14px;padding:20px">
+      <div class="text-xs text-zinc-400 uppercase tracking-wider mb-2">Target Cities</div>
+      <div class="text-3xl font-bold text-sky-400">100</div>
+      <div class="text-xs text-zinc-500 mt-1">Pan-India rollout</div>
+    </div>
+    <div style="background:#161b22;border:1px solid #21262d;border-radius:14px;padding:20px">
+      <div class="text-xs text-zinc-400 uppercase tracking-wider mb-2">Time Saved/Day</div>
+      <div class="text-3xl font-bold text-amber-400">18 <span class="text-sm text-zinc-500">min</span></div>
+      <div class="text-xs text-zinc-500 mt-1">Per commuter</div>
+    </div>
+    <div style="background:#161b22;border:1px solid #21262d;border-radius:14px;padding:20px">
+      <div class="text-xs text-zinc-400 uppercase tracking-wider mb-2">Fuel Saved/Month</div>
+      <div class="text-3xl font-bold text-emerald-400">₹480</div>
+      <div class="text-xs text-zinc-500 mt-1">Per user</div>
+    </div>
+    <div style="background:#161b22;border:1px solid #21262d;border-radius:14px;padding:20px">
+      <div class="text-xs text-zinc-400 uppercase tracking-wider mb-2">CO₂ Reduced/Year</div>
+      <div class="text-3xl font-bold text-sky-400">156 <span class="text-sm text-zinc-500">kg</span></div>
+      <div class="text-xs text-zinc-500 mt-1">Per user</div>
+    </div>
+  </div>
+  <div style="background:#161b22;border:1px solid #21262d;border-radius:14px;padding:24px">
+    <h2 class="text-lg font-bold mb-6">Revenue Projection (₹ Cr)</h2>
+    <canvas id="revenueChart" height="80"></canvas>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+new Chart(document.getElementById('revenueChart'), {
+  type:'bar',
+  data:{
+    labels:['Year 1','Year 2','Year 3','Year 4','Year 5'],
+    datasets:[{label:'Revenue (₹ Cr)',data:[2,6.5,12,18,25],
+      backgroundColor:'rgba(245,166,35,.3)',borderColor:'#f5a623',borderWidth:2,borderRadius:6}]
+  },
+  options:{responsive:true,plugins:{legend:{display:false}},
+    scales:{x:{grid:{color:'#21262d'},ticks:{color:'#8b949e'}},
+            y:{grid:{color:'#21262d'},ticks:{color:'#8b949e',callback:v=>'₹'+v+' Cr'}}}}
+});
+</script>
+{% endblock %}

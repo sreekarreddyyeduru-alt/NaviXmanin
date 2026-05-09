@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Forgot Password — NaviX{% endblock %}
+{% block content %}
+<div class="min-h-screen flex items-center justify-center px-4 py-12">
+  <div class="w-full max-w-md">
+    <div style="background:#161b22;border:1px solid #21262d;border-radius:16px;padding:32px">
+      <h1 class="text-2xl font-bold mb-1">Reset password</h1>
+      <p class="text-zinc-400 text-sm mb-6">Enter your email to receive a reset code.</p>
+      <form method="POST" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Email</label>
+          <input type="email" name="email" required autofocus class="form-input" placeholder="you@example.com"/>
+        </div>
+        <button type="submit" class="w-full bg-amber-400 hover:bg-amber-300 text-black font-bold py-2.5 rounded-lg transition">Send reset code</button>
+      </form>
+      <p class="text-center text-sm text-zinc-400 mt-6"><a href="{{ url_for('auth.login') }}" class="text-amber-400 hover:text-amber-300">Back to login</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}
